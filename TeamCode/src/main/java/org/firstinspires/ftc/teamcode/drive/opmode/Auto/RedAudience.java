@@ -112,7 +112,7 @@ public class RedAudience extends LinearOpMode {
 
         initTfod();
 
-        leftFront = hardwareMap.get(DcMotorEx.class, "front_left");
+        leftFront = hardwareMap.get(DcMotorEx.class, "leftFront");
         leftRear = hardwareMap.get(DcMotorEx.class, "rear_left");
         rightRear = hardwareMap.get(DcMotorEx.class, "rear_right");
         rightFront = hardwareMap.get(DcMotorEx.class, "front_right");
