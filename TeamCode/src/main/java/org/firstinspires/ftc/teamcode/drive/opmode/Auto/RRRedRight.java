@@ -152,11 +152,11 @@ public class RRRedRight extends LinearOpMode {
                 .build();
 
         Trajectory traj1_2 = drive.trajectoryBuilder(traj1_1.end())
-                .back(4)
+                .back(6)
                 .build();
 
         Trajectory traj1_3 = drive.trajectoryBuilder(traj1_2.end())
-                .forward(6)
+                .forward(8)
                 .build();
 
         TrajectorySequence traj1_4 = drive.trajectorySequenceBuilder(traj1_3.end())
@@ -164,15 +164,37 @@ public class RRRedRight extends LinearOpMode {
                 .build();
 
         Trajectory traj1_5 = drive.trajectoryBuilder(traj1_4.end())
-                .back(31)
+                .strafeRight(8)
                 .build();
 
-        TrajectorySequence traj_wait = drive.trajectorySequenceBuilder(traj1_5.end())
-                .waitSeconds(3)
+        Trajectory traj1_6 = drive.trajectoryBuilder(traj1_5.end())
+                .back(37)
+                .addTemporalMarker(0, () -> {
+                    dread.setPower(-1);
+                })
+                .addTemporalMarker(3.5, () -> {
+                    dread.setPower(0);
+                })
                 .build();
 
-        Trajectory traj1_6 = drive.trajectoryBuilder(traj_wait.end())
-                .strafeLeft(26)
+        TrajectorySequence traj_wait = drive.trajectorySequenceBuilder(traj1_6.end())
+                .waitSeconds(5.5)
+                .addTemporalMarker(0.5, () -> {
+                    outtake.setPosition(0);
+                })
+                .addTemporalMarker(3.5, () -> {
+                    outtake.setPosition(1);
+                })
+                .addTemporalMarker(4, () -> {
+                    dread.setPower(1);
+                })
+                .addTemporalMarker(5, () -> {
+                    dread.setPower(0);
+                })
+                .build();
+
+        Trajectory traj1_7 = drive.trajectoryBuilder(traj_wait.end())
+                .strafeLeft(32)
                 .build();
 
         if (opModeIsActive()) {
@@ -209,11 +231,9 @@ public class RRRedRight extends LinearOpMode {
                     drive.followTrajectory(traj1_3);
                     drive.followTrajectorySequence(traj1_4);
                     drive.followTrajectory(traj1_5);
-                    drive.followTrajectorySequence(traj_wait);
-                    dreadOut(2000);
-                    backdropDeposit();
-                    dreadIn(1000);
                     drive.followTrajectory(traj1_6);
+                    drive.followTrajectorySequence(traj_wait);
+                    drive.followTrajectory(traj1_7);
 
                     //CODE TO DEPOSIT PRELOAD ON LEFT SPIKE MARK
                     //ORIENT ROBOT
