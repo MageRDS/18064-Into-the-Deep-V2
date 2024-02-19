@@ -167,18 +167,16 @@ public class RRRedRight extends LinearOpMode {
                 .back(31)
                 .build();
 
+        TrajectorySequence traj_wait = drive.trajectorySequenceBuilder(traj1_5.end())
+                .waitSeconds(3)
+                .build();
+
+        Trajectory traj1_6 = drive.trajectoryBuilder(traj_wait.end())
+                .strafeLeft(26)
+                .build();
+
         if (opModeIsActive()) {
             while (opModeIsActive()) {
-
-                drive.followTrajectory(trajStart);
-                drive.followTrajectorySequence(traj1_1);
-                drive.followTrajectory(traj1_2);
-                drive.followTrajectory(traj1_3);
-                drive.followTrajectorySequence(traj1_4);
-                drive.followTrajectory(traj1_5);
-
-
-                sleep(100000);
 
                 telemetryTfod();
                 // Push telemetry to the Driver Station.
@@ -205,8 +203,17 @@ public class RRRedRight extends LinearOpMode {
                     //ORIENT ROBOT
                 } else {
 
-                    //turnRight(250,0.6);
-                    //driveBackward(235,0.3);
+                    drive.followTrajectory(trajStart);
+                    drive.followTrajectorySequence(traj1_1);
+                    drive.followTrajectory(traj1_2);
+                    drive.followTrajectory(traj1_3);
+                    drive.followTrajectorySequence(traj1_4);
+                    drive.followTrajectory(traj1_5);
+                    drive.followTrajectorySequence(traj_wait);
+                    dreadOut(2000);
+                    backdropDeposit();
+                    dreadIn(1000);
+                    drive.followTrajectory(traj1_6);
 
                     //CODE TO DEPOSIT PRELOAD ON LEFT SPIKE MARK
                     //ORIENT ROBOT

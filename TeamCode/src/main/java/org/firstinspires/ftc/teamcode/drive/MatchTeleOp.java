@@ -249,11 +249,11 @@ public class MatchTeleOp extends LinearOpMode {
                 rightPull.setPosition(0.25);
                 //plan to break into multiple steps
                 sleep(1000);
-                drone.setPosition(0);
+                drone.setPosition(0.5);
                 sleep(500);
                 leftPull.setPosition(0);
                 rightPull.setPosition(0.5);
-                drone.setPosition(0.8);
+                drone.setPosition(0);
                 //moving into claw and linear slides (second controller)
 
             }
