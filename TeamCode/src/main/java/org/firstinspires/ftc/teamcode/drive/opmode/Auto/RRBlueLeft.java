@@ -41,6 +41,7 @@ import org.firstinspires.ftc.robotcore.external.hardware.camera.BuiltinCameraDir
 import org.firstinspires.ftc.robotcore.external.hardware.camera.WebcamName;
 import org.firstinspires.ftc.robotcore.external.tfod.Recognition;
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
+import org.firstinspires.ftc.teamcode.trajectorysequence.TrajectorySequence;
 import org.firstinspires.ftc.vision.VisionPortal;
 import org.firstinspires.ftc.vision.tfod.TfodProcessor;
 
@@ -141,19 +142,47 @@ public class RRBlueLeft extends LinearOpMode {
         Pose2d startPos = new Pose2d(-32, 68, Math.toRadians(180));
 
         Trajectory trajStart = drive.trajectoryBuilder(new Pose2d())
-                .forward(32)
+                .back(25.5)
+                .build();
+
+        TrajectorySequence traj1_1 = drive.trajectorySequenceBuilder(trajStart.end())
+                .turn(Math.toRadians(90))
+                .build();
+
+        Trajectory traj1_2 = drive.trajectoryBuilder(traj1_1.end())
+                .back(4)
+                .build();
+
+        Trajectory traj1_3 = drive.trajectoryBuilder(traj1_2.end())
+                .forward(6)
+                .build();
+
+        TrajectorySequence traj1_4 = drive.trajectorySequenceBuilder(traj1_3.end())
+                .turn(Math.toRadians(180))
+                .build();
+
+        Trajectory traj1_5 = drive.trajectoryBuilder(traj1_4.end())
+                .back(31)
                 .build();
 
         if (opModeIsActive()) {
             while (opModeIsActive()) {
+                drive.followTrajectory(trajStart);
+                drive.followTrajectorySequence(traj1_1);
+                drive.followTrajectory(traj1_2);
+                drive.followTrajectory(traj1_3);
+                drive.followTrajectorySequence(traj1_4);
+                drive.followTrajectory(traj1_5);
+
+
+                sleep(100000);
 
                 telemetryTfod();
-
                 // Push telemetry to the Driver Station.
                 telemetry.update();
 
                 if (spikeLocation() == 3) {
-
+                    /*
                     driveBackward(1155,0.3);
                     turnRight(680,0.3);
                     driveBackward(265,0.3);
@@ -171,10 +200,10 @@ public class RRBlueLeft extends LinearOpMode {
                     //driveForward(200,0.3);
                     //turnRight(250,0.6);
                     driveBackward(500,0.3);
-
+                    */
 
                 } else if (spikeLocation() == 2) {
-
+                    /*
                     driveBackward(1335,0.3);
                     //turnLeft(1630, 0.3);
                     driveForward(250,0.3);
@@ -193,8 +222,10 @@ public class RRBlueLeft extends LinearOpMode {
                     //driveBackward(300, 0.3);
                     //CODE TO DEPOSIT PRELOAD ON CENTER SPIKE MARK
                     //ORIENT ROBOT
+
+                     */
                 } else {
-                    drive.followTrajectory(trajStart);
+                    //drive.followTrajectory(trajStart);
                 }
 
                 //DRIVE ROBOT TO PARK

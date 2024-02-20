@@ -197,14 +197,84 @@ public class RRRedRight extends LinearOpMode {
                 .strafeLeft(32)
                 .build();
 
+        Trajectory traj2_1 = drive.trajectoryBuilder(trajStart.end())
+                .strafeLeft(5)
+                .build();
+        Trajectory traj2_2 = drive.trajectoryBuilder(traj2_1.end())
+                .forward(10)
+                .build();
+        Trajectory traj2_3 = drive.trajectoryBuilder(traj2_2.end())
+                .strafeLeft(30)
+                .build();
+        TrajectorySequence traj2_4 = drive.trajectorySequenceBuilder(traj2_3.end())
+                .turn(Math.toRadians(-90))
+                .build();
+        Trajectory traj2_5 = drive.trajectoryBuilder(traj2_4.end())
+                .back(4)
+                .build();
+        TrajectorySequence traj_wait2 = drive.trajectorySequenceBuilder(traj2_5.end())
+                .waitSeconds(5.5)
+                .addTemporalMarker(0, () -> {
+                    dread.setPower(-1);
+                })
+                .addTemporalMarker(2.8, () -> {
+                    dread.setPower(0);
+                })
+                .addTemporalMarker(0.8, () -> {
+                    outtake.setPosition(0);
+                })
+                .addTemporalMarker(3.5, () -> {
+                    outtake.setPosition(1);
+                })
+                .addTemporalMarker(4, () -> {
+                    dread.setPower(1);
+                })
+                .addTemporalMarker(5, () -> {
+                    dread.setPower(0);
+                })
+                .build();
+        Trajectory traj2_6 = drive.trajectoryBuilder(traj_wait2.end())
+                .forward(5)
+                .build();
+        Trajectory traj2_7 = drive.trajectoryBuilder(traj2_6.end())
+                .strafeLeft(18)
+                .build();
+        /*TrajectorySequence traj2_1 = drive.trajectorySequenceBuilder(trajStart.end())
+                .turn(Math.toRadians(-90))
+                .build();
+
+        TrajectorySequence traj2_4 = drive.trajectorySequenceBuilder(traj1_3.end())
+                .turn(Math.toRadians(180))
+                .build();
+
+        Trajectory traj2_5 = drive.trajectoryBuilder(traj1_4.end())
+                .back(31)
+                .build();*/
+
+
+
+
         if (opModeIsActive()) {
             while (opModeIsActive()) {
+
+
 
                 telemetryTfod();
                 // Push telemetry to the Driver Station.
                 telemetry.update();
 
                 if (spikeLocation() == 3) {
+
+
+                    drive.followTrajectory(trajStart);
+                    drive.followTrajectory(traj2_1);
+                    drive.followTrajectory(traj2_2);
+                    drive.followTrajectory(traj2_3);
+                    drive.followTrajectorySequence(traj2_4);
+                    drive.followTrajectory(traj2_5);
+                    drive.followTrajectorySequence(traj_wait2);
+                    drive.followTrajectory(traj2_6);
+                    drive.followTrajectory(traj2_7);
                     /*
                     driveBackward(1155,0.3);
                     turnLeft(2300,0.3);
@@ -217,12 +287,14 @@ public class RRRedRight extends LinearOpMode {
                     turnLeft(900,0.3);
                     driveBackward(400,0.3);
                     */
+                    sleep(30000);
                 } else if (spikeLocation() == 2) {
 
                     //turnLeft(250, 0.3);
                     //driveBackward(300, 0.3);
                     //CODE TO DEPOSIT PRELOAD ON CENTER SPIKE MARK
                     //ORIENT ROBOT
+                    sleep(30000);
                 } else {
 
                     drive.followTrajectory(trajStart);
@@ -234,7 +306,7 @@ public class RRRedRight extends LinearOpMode {
                     drive.followTrajectory(traj1_6);
                     drive.followTrajectorySequence(traj_wait);
                     drive.followTrajectory(traj1_7);
-
+                    sleep(30000);
                     //CODE TO DEPOSIT PRELOAD ON LEFT SPIKE MARK
                     //ORIENT ROBOT
                 }
