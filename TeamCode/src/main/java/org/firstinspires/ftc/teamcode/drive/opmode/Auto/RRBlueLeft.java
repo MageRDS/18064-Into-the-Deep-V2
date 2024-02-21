@@ -141,66 +141,70 @@ public class RRBlueLeft extends LinearOpMode {
 
         Pose2d startPos = new Pose2d(-32, 68, Math.toRadians(180));
 
-        Trajectory trajStart = drive.trajectoryBuilder(new Pose2d())
+
+        Trajectory traj3_1 = drive.trajectoryBuilder(new Pose2d())
                 .back(25.5)
                 .build();
-
-        TrajectorySequence traj1_1 = drive.trajectorySequenceBuilder(trajStart.end())
-                .turn(Math.toRadians(90))
+        TrajectorySequence traj3_2 = drive.trajectorySequenceBuilder(traj3_1.end())
+                .turn(Math.toRadians(270))
                 .build();
-
-        Trajectory traj1_2 = drive.trajectoryBuilder(traj1_1.end())
-                .back(4)
+        Trajectory traj3_3 = drive.trajectoryBuilder(traj3_2.end())
+                .back(8)
                 .build();
-
-        Trajectory traj1_3 = drive.trajectoryBuilder(traj1_2.end())
-                .forward(6)
+        Trajectory traj3_4 = drive.trajectoryBuilder(traj3_3.end())
+                .forward(10)
                 .build();
-
-        TrajectorySequence traj1_4 = drive.trajectorySequenceBuilder(traj1_3.end())
+        TrajectorySequence traj3_5 = drive.trajectorySequenceBuilder(traj3_4.end())
                 .turn(Math.toRadians(180))
                 .build();
-
-        Trajectory traj1_5 = drive.trajectoryBuilder(traj1_4.end())
-                .back(31)
+        Trajectory traj3_6 = drive.trajectoryBuilder(traj3_5.end())
+                .strafeLeft(8)
+                .build();
+        Trajectory traj3_7 = drive.trajectoryBuilder(traj3_6.end())
+                .back(37)
+                .addTemporalMarker(0, () -> {
+                    dread.setPower(-1);
+                })
+                .build();
+        TrajectorySequence traj3_8 = drive.trajectorySequenceBuilder(traj3_7.end())
+                .waitSeconds(7)
+                .addTemporalMarker(0.5, () -> {
+                    dread.setPower(0);
+                })
+                .addTemporalMarker(1, () -> {
+                    outtake.setPosition(0);
+                })
+                .addTemporalMarker(4, () -> {
+                    outtake.setPosition(1);
+                })
+                .addTemporalMarker(4.5, () -> {
+                    dread.setPower(1);
+                })
+                .addTemporalMarker(6.5, () -> {
+                    dread.setPower(0);
+                })
+                .build();
+        Trajectory traj3_9 = drive.trajectoryBuilder(traj3_8.end())
+                .strafeRight(32)
                 .build();
 
         if (opModeIsActive()) {
             while (opModeIsActive()) {
-                drive.followTrajectory(trajStart);
-                drive.followTrajectorySequence(traj1_1);
-                drive.followTrajectory(traj1_2);
-                drive.followTrajectory(traj1_3);
-                drive.followTrajectorySequence(traj1_4);
-                drive.followTrajectory(traj1_5);
-
-
-                sleep(100000);
 
                 telemetryTfod();
                 // Push telemetry to the Driver Station.
                 telemetry.update();
 
                 if (spikeLocation() == 3) {
-                    /*
-                    driveBackward(1155,0.3);
-                    turnRight(680,0.3);
-                    driveBackward(265,0.3);
-
-                    driveForward(300,0.3);
-                    turnRight(1535,0.3);
-                    driveBackward(1690,0.3);
-                    strafeLeft(300,0.5);
-                    //strafeRight(170,0.3);
-                    dreadOut(2500);
-                    backdropDeposit();
-                    dreadIn(1000);
-                    driveForward(135,0.3);
-                    strafeRight(1765,0.5);
-                    //driveForward(200,0.3);
-                    //turnRight(250,0.6);
-                    driveBackward(500,0.3);
-                    */
+                    drive.followTrajectory(traj3_1);
+                    drive.followTrajectorySequence(traj3_2);
+                    drive.followTrajectory(traj3_3);
+                    drive.followTrajectory(traj3_4);
+                    drive.followTrajectorySequence(traj3_5);
+                    drive.followTrajectory(traj3_6);
+                    drive.followTrajectory(traj3_7);
+                    drive.followTrajectorySequence(traj3_8);
+                    drive.followTrajectory(traj3_9);
 
                 } else if (spikeLocation() == 2) {
                     /*
