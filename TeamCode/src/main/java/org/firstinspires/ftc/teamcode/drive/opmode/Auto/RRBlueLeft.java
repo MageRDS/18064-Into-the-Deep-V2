@@ -157,8 +157,9 @@ public class RRBlueLeft extends LinearOpMode {
         TrajectorySequence traj3_5 = drive.trajectorySequenceBuilder(traj3_4.end())
                 .turn(Math.toRadians(180))
                 .build();
+
         Trajectory traj3_6 = drive.trajectoryBuilder(traj3_5.end())
-                .strafeLeft(8)
+                .strafeLeft(6)
                 .build();
         Trajectory traj3_7 = drive.trajectoryBuilder(traj3_6.end())
                 .back(37)
@@ -184,7 +185,10 @@ public class RRBlueLeft extends LinearOpMode {
                     dread.setPower(0);
                 })
                 .build();
-        Trajectory traj3_9 = drive.trajectoryBuilder(traj3_8.end())
+        Trajectory traj3_t = drive.trajectoryBuilder(traj3_8.end())
+                .forward(4)
+                .build();
+        Trajectory traj3_9 = drive.trajectoryBuilder(traj3_t.end())
                 .strafeRight(32)
                 .build();
         Trajectory trajStart = drive.trajectoryBuilder(new Pose2d())
@@ -233,6 +237,49 @@ public class RRBlueLeft extends LinearOpMode {
         Trajectory traj1_7 = drive.trajectoryBuilder(traj1_6.end())
                 .strafeRight(18)
                 .build();
+        Trajectory traj2_1 = drive.trajectoryBuilder(new Pose2d())
+                .back(29)
+                .build();
+        Trajectory traj2_2 = drive.trajectoryBuilder(traj2_1.end())
+                .forward(8)
+                .build();
+        TrajectorySequence traj2_3 = drive.trajectorySequenceBuilder(traj2_2.end())
+                .turn(Math.toRadians(90))
+                .build();
+        Trajectory traj2_4 = drive.trajectoryBuilder(traj2_3.end())
+                .strafeLeft(5)
+                .build();
+        Trajectory traj2_5 = drive.trajectoryBuilder(traj2_4.end())
+                .back(39)
+                .addTemporalMarker(0, () -> {
+                    dread.setPower(-1);
+                })
+                .build();
+        TrajectorySequence traj2wait = drive.trajectorySequenceBuilder(traj2_5.end())
+                .waitSeconds(8)
+                .addTemporalMarker(0.5, () -> {
+                    dread.setPower(0);
+                })
+                .addTemporalMarker(1.75, () -> {
+                    outtake.setPosition(0);
+                })
+                .addTemporalMarker(4.75, () -> {
+                    outtake.setPosition(1);
+                })
+                .addTemporalMarker(5.25, () -> {
+                    dread.setPower(1);
+                })
+                .addTemporalMarker(7.25, () -> {
+                    dread.setPower(0);
+                })
+                .build();
+        Trajectory traj2_6 = drive.trajectoryBuilder(traj2wait.end())
+                .forward(4)
+                .build();
+        Trajectory traj2_7 = drive.trajectoryBuilder(traj2_6.end())
+                .strafeRight(24)
+                .build();
+
         if (opModeIsActive()) {
             while (opModeIsActive()) {
 
@@ -246,13 +293,22 @@ public class RRBlueLeft extends LinearOpMode {
                     drive.followTrajectory(traj3_3);
                     drive.followTrajectory(traj3_4);
                     drive.followTrajectorySequence(traj3_5);
+
                     drive.followTrajectory(traj3_6);
                     drive.followTrajectory(traj3_7);
                     drive.followTrajectorySequence(traj3_8);
+                    drive.followTrajectory(traj3_t);
                     drive.followTrajectory(traj3_9);
 
                 } else if (spikeLocation() == 2) {
-                    
+                    drive.followTrajectory(traj2_1);
+                    drive.followTrajectory(traj2_2);
+                    drive.followTrajectorySequence(traj2_3);
+                    drive.followTrajectory(traj2_4);
+                    drive.followTrajectory(traj2_5);
+                    drive.followTrajectorySequence(traj2wait);
+                    drive.followTrajectory(traj2_6);
+                    drive.followTrajectory(traj2_7);
                     /*
                     driveBackward(1335,0.3);
                     //turnLeft(1630, 0.3);

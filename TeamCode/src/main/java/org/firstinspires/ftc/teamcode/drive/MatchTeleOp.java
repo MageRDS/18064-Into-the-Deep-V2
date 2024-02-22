@@ -223,6 +223,26 @@ public class MatchTeleOp extends LinearOpMode {
                 leftRear.setPower(-.8);
                 rightFront.setPower(-1);
                 rightRear.setPower(.8);
+            } else if (G1UD) {
+                leftFront.setPower(.5);
+                leftRear.setPower(.5);
+                rightFront.setPower(.5);
+                rightRear.setPower(.5);
+            } else if (G1DD) {
+                leftFront.setPower(-.5);
+                leftRear.setPower(-.5);
+                rightFront.setPower(-.5);
+                rightRear.setPower(-.5);
+            } else if (G1LD) {
+                leftFront.setPower(.5);
+                leftRear.setPower(-.5);
+                rightFront.setPower(-.5);
+                rightRear.setPower(.5);
+            } else if (G1RD) {
+                leftFront.setPower(-.5);
+                leftRear.setPower(.5);
+                rightFront.setPower(.5);
+                rightRear.setPower(-.5);
             }
 
             if (G2A) { // Intake + treadmill going up
