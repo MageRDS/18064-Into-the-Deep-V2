@@ -143,7 +143,7 @@ public class RRBlueLeft extends LinearOpMode {
 
 
         Trajectory traj3_1 = drive.trajectoryBuilder(new Pose2d())
-                .back(25.5)
+                .back(29.5) //Original value 25.5
                 .build();
         TrajectorySequence traj3_2 = drive.trajectorySequenceBuilder(traj3_1.end())
                 .turn(Math.toRadians(270))
@@ -159,7 +159,7 @@ public class RRBlueLeft extends LinearOpMode {
                 .build();
 
         Trajectory traj3_6 = drive.trajectoryBuilder(traj3_5.end())
-                .strafeLeft(6)
+                .strafeLeft(2) //original value 6
                 .build();
         Trajectory traj3_7 = drive.trajectoryBuilder(traj3_6.end())
                 .back(37)
@@ -192,13 +192,13 @@ public class RRBlueLeft extends LinearOpMode {
                 .strafeRight(32)
                 .build();
         Trajectory trajStart = drive.trajectoryBuilder(new Pose2d())
-                .back(14.5)
+                .back(18.5) //original value 14.5
                 .build();
         Trajectory traj1_1 = drive.trajectoryBuilder(trajStart.end())
                 .strafeRight(13.5)
                 .build();
         Trajectory traj1_2 = drive.trajectoryBuilder(traj1_1.end())
-                .forward(8)
+                .forward(12) //original value 8
                 .build();
 
         TrajectorySequence traj1_3 = drive.trajectorySequenceBuilder(traj1_2.end())
