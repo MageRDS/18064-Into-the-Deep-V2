@@ -178,11 +178,15 @@ public class RedAudience extends LinearOpMode {
                 .build();
 
         Trajectory left_traj5 = drive.trajectoryBuilder(left_traj4.end())
-                .strafeLeft(25)
+                .strafeLeft(26)
                 .build();
         Trajectory left_traj6 = drive.trajectoryBuilder(left_traj5.end())
                 .forward(80)
                 .build();
+        Trajectory left_traj7 = drive.trajectoryBuilder(left_traj6.end())
+                .strafeRight(5)
+                .build();
+        // --------------------
 
 
 
@@ -200,10 +204,13 @@ public class RedAudience extends LinearOpMode {
                 .back(25)
                 .build();
         TrajectorySequence middle_traj5 = drive.trajectorySequenceBuilder(middle_traj4.end())
-                .turn(Math.toRadians(-90))
+                .turn(Math.toRadians(-91))
                 .build();
         Trajectory middle_traj6 = drive.trajectoryBuilder(middle_traj5.end())
                 .back(100)
+                .build();
+        Trajectory middle_traj7 = drive.trajectoryBuilder(middle_traj5.end())
+                .strafeLeft(5)
                 .build();
         // -------------------- ID 3 Trajectories -----------
         Trajectory right_traj1 = drive.trajectoryBuilder(new Pose2d())
@@ -219,10 +226,14 @@ public class RedAudience extends LinearOpMode {
                 .forward(10)
                 .build();
         Trajectory right_traj5 = drive.trajectoryBuilder(right_traj4.end())
-                .strafeRight(27)
+                .strafeRight(23)
                 .build();
-        Trajectory right_traj6 = drive.trajectoryBuilder(right_traj5.end())
+
+        Trajectory right_traj7 = drive.trajectoryBuilder(right_traj5.end())
                 .back(100)
+                .build();
+        Trajectory right_traj8 = drive.trajectoryBuilder(right_traj7.end())
+                .strafeLeft(5)
                 .build();
 
 
@@ -241,16 +252,18 @@ public class RedAudience extends LinearOpMode {
 
 
 
-
-
+                sleep(7000);
                 if (spikeLocation() == 3) {
 
                     drive.followTrajectory(right_traj1);
                     drive.followTrajectorySequence(right_traj2);
                     drive.followTrajectory(right_traj3);
                     drive.followTrajectory(right_traj4);
+                    sleep(800);
                     drive.followTrajectory(right_traj5);
-                    drive.followTrajectory(right_traj6);
+                    sleep(200);
+                    drive.followTrajectory(right_traj7);
+                    drive.followTrajectory(right_traj8);
 
                     sleep(100000);
 
@@ -259,10 +272,12 @@ public class RedAudience extends LinearOpMode {
 
                     drive.followTrajectory(middle_traj1);
                     drive.followTrajectory(middle_traj2);
+                    sleep(800);
                     drive.followTrajectory(middle_traj3);
                     drive.followTrajectory(middle_traj4);
                     drive.followTrajectorySequence(middle_traj5);
                     drive.followTrajectory(middle_traj6);
+                    drive.followTrajectory(middle_traj7);
 
 
                     sleep(100000);
@@ -272,11 +287,18 @@ public class RedAudience extends LinearOpMode {
                 } else {
 
                     drive.followTrajectory(left_traj1);
+                    sleep(200);
                     drive.followTrajectorySequence(left_traj2);
+                    sleep(200);
                     drive.followTrajectory(left_traj3);
+                    sleep(200);
                     drive.followTrajectory(left_traj4);
+                    sleep(800);
                     drive.followTrajectory(left_traj5);
+                    sleep(400);
                     drive.followTrajectory(left_traj6);
+                    sleep(400);
+                    drive.followTrajectory(left_traj7);
 
 
 

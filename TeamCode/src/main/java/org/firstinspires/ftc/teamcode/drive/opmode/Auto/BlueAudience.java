@@ -189,7 +189,10 @@ public class BlueAudience extends LinearOpMode {
                 .build();
 
         Trajectory left_traj8 = drive.trajectoryBuilder(left_traj7.end())
-                .forward(9)
+                .forward(90)
+                .build();
+        Trajectory left_traj9 = drive.trajectoryBuilder(left_traj8.end())
+                .strafeLeft(5)
                 .build();
 
 
@@ -209,7 +212,7 @@ public class BlueAudience extends LinearOpMode {
                 .back(25)
                 .build();
         TrajectorySequence middle_traj5 = drive.trajectorySequenceBuilder(middle_traj4.end())
-                .turn(Math.toRadians(90))
+                .turn(Math.toRadians(93))
                 .build();
         Trajectory middle_traj6 = drive.trajectoryBuilder(middle_traj5.end())
                 .back(100)
@@ -231,10 +234,10 @@ public class BlueAudience extends LinearOpMode {
                 .back(38)
                 .build();
         TrajectorySequence right_traj6 = drive.trajectorySequenceBuilder(right_traj5.end())
-                .turn(Math.toRadians(-90))
+                .turn(Math.toRadians(90))
                 .build();
         Trajectory right_traj7 = drive.trajectoryBuilder(right_traj6.end())
-                .back(90)
+                .back(95)
                 .build();
 
 
@@ -250,6 +253,7 @@ public class BlueAudience extends LinearOpMode {
 
                 // Push telemetry to the Driver Station.
                 telemetry.update();
+                sleep(2000);
 
 
 
@@ -292,6 +296,7 @@ public class BlueAudience extends LinearOpMode {
                     drive.followTrajectory(left_traj6);
                     drive.followTrajectorySequence(left_traj7);
                     drive.followTrajectory(left_traj8);
+                    drive.followTrajectory(left_traj9);
 
 
 
