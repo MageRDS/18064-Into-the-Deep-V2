@@ -12,7 +12,7 @@ import com.qualcomm.robotcore.hardware.Servo;
 
 import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 
-@TeleOp(name = "Fortnite God")
+@TeleOp(name = "Match-TeleOp")
 
 public class Fortnite_God extends LinearOpMode {
 
@@ -27,13 +27,13 @@ public class Fortnite_God extends LinearOpMode {
 
 
 
-    private CRServo wheel_bucket;
+    private Servo switch_bucket;
 
     private Servo left_servo_lift;
 
     private Servo right_servo_lift;
 
-    private Servo flipper_bucket;
+    private Servo right_servo_slide;
 
     private DcMotor slide = null;
     private CRServo drone = null;
@@ -58,8 +58,8 @@ public class Fortnite_God extends LinearOpMode {
         right_lift =  hardwareMap.get(DcMotor.class, "right_lift");
 
 
-        wheel_bucket = hardwareMap.get(CRServo.class, "wheel_bucket"); // Port 5 Expansion Hub
-        flipper_bucket = hardwareMap.get(Servo.class, "flipper_bucket"); // port 4 Expansion Hub
+        switch_bucket = hardwareMap.get(Servo.class, "switch_bucket"); // Port 5 Expansion Hub
+        right_servo_slide = hardwareMap.get(Servo.class, "right_servo_slide"); // port 4 Expansion Hub
         drone = hardwareMap.get(CRServo.class, "drone");
 
         left_servo_lift = hardwareMap.get(Servo.class, "left_servo_lift");
@@ -169,9 +169,9 @@ public class Fortnite_God extends LinearOpMode {
                     slide.setPower(0);
 
                 }if (G1LD) {
-                    flipper_bucket.setPosition(1);
+                    //right_servo_slide.setPosition(1);
                 }else if(G1RD){
-                    flipper_bucket.setPosition(0);
+                    //right_servo_slide.setPosition(0);
                 }
 
 
