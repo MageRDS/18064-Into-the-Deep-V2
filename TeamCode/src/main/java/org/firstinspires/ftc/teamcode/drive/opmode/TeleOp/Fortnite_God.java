@@ -174,24 +174,12 @@ public class Fortnite_God extends LinearOpMode {
                     right_servo_slide.setPosition(0.5);
                     left_servo_slide.setPosition(0.5);
                 }else if(G1RD){
-                    right_servo_slide.setPosition(0);
+                    right_servo_slide.setPosition(0.2);
                     left_servo_slide.setPosition(0);
                 }
 
 
-                }
-
-            /*
-            if (G2UD) { // Upward
-                slide.setPower(0.85);
-            } else if (G2DD) {
-                slide.setPower(-.85);
-            } else {
-                slide.setPower(.05);
-            }
-
-             */
-                if (G1A) {
+                }if (G1A) {
                     right_servo_lift.setPosition(.32);
                     sleep(400);
                     drone.setPower(1);
