@@ -34,6 +34,7 @@ public class Fortnite_God extends LinearOpMode {
     private Servo right_servo_lift;
 
     private Servo right_servo_slide;
+    private Servo left_servo_slide;
 
     private DcMotor slide = null;
     private CRServo drone = null;
@@ -60,6 +61,7 @@ public class Fortnite_God extends LinearOpMode {
 
         switch_bucket = hardwareMap.get(Servo.class, "switch_bucket"); // Port 5 Expansion Hub
         right_servo_slide = hardwareMap.get(Servo.class, "right_servo_slide"); // port 4 Expansion Hub
+        left_servo_slide = hardwareMap.get(Servo.class, "right_servo_slide"); // port 4 Expansion Hub
         drone = hardwareMap.get(CRServo.class, "drone");
 
         left_servo_lift = hardwareMap.get(Servo.class, "left_servo_lift");
@@ -169,9 +171,11 @@ public class Fortnite_God extends LinearOpMode {
                     slide.setPower(0);
 
                 }if (G1LD) {
-                    //right_servo_slide.setPosition(1);
+                    right_servo_slide.setPosition(0.5);
+                    left_servo_slide.setPosition(0.5);
                 }else if(G1RD){
-                    //right_servo_slide.setPosition(0);
+                    right_servo_slide.setPosition(0);
+                    left_servo_slide.setPosition(0);
                 }
 
 
