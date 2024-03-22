@@ -23,11 +23,13 @@ public class Fortnite_God extends LinearOpMode {
     private DcMotor rightRear = null;
     private DcMotor Intake = null;
 
+    private Servo left_servo_slide;
 
 
 
 
-    private Servo switch_bucket;
+
+    private CRServo wheel_bucket;
 
     private Servo left_servo_lift;
 
@@ -41,6 +43,8 @@ public class Fortnite_God extends LinearOpMode {
     private DcMotor left_lift = null;
 
     private DcMotor right_lift = null;
+
+
 
     @Override
     public void runOpMode() {
@@ -58,8 +62,9 @@ public class Fortnite_God extends LinearOpMode {
         right_lift =  hardwareMap.get(DcMotor.class, "right_lift");
 
 
-        switch_bucket = hardwareMap.get(Servo.class, "switch_bucket"); // Port 5 Expansion Hub
-        right_servo_slide = hardwareMap.get(Servo.class, "right_servo_slide"); // port 4 Expansion Hub
+        wheel_bucket = hardwareMap.get(CRServo.class, "wheel_bucket"); // Port 5 Expansion Hub
+        right_servo_slide = hardwareMap.get(Servo.class, "right_servo_slide");
+        left_servo_slide = hardwareMap.get(Servo.class, "left_servo_slide");// port 4 Expansion Hub
         drone = hardwareMap.get(CRServo.class, "drone");
 
         left_servo_lift = hardwareMap.get(Servo.class, "left_servo_lift");
@@ -139,18 +144,26 @@ public class Fortnite_God extends LinearOpMode {
                 boolean G2leftBumper = gamepad2.left_bumper;
                 boolean G2back = gamepad2.back;
 
+                boolean hanging = false;
+
+
+
+
 
                 if (G1B) { // Intake Forward
                     Intake.setPower(-0.7);
-                    //wheel_bucket.setPower(-1);
-                    //flipper_bucket.setPosition(1);
+                    wheel_bucket.setPower(-1);
+
+
 
                 } else if (G1X) {
+
+                    wheel_bucket.setPower(1);
                     Intake.setPower(.7);
 
                 } else {
                     Intake.setPower(0);
-                    //wheel_bucket.setPower(0);
+                    wheel_bucket.setPower(0);
                 }
 
                 if (G1Y) {
@@ -158,12 +171,12 @@ public class Fortnite_God extends LinearOpMode {
                     sleep(400);
                     drone.setPower(1);
 
-                if(G1UD) {
+                if(G1rightBumper) {
                     slide.setPower(1);
                 } else {
                     slide.setPower(0);
                 }
-                if(G1DD) {
+                if(G1leftBumper ) {
                     slide.setPower(-1);
                 }else {
                     slide.setPower(0);
@@ -177,17 +190,25 @@ public class Fortnite_God extends LinearOpMode {
 
                 }
 
-            /*
-            if (G2UD) { // Upward
-                slide.setPower(0.85);
-            } else if (G2DD) {
-                slide.setPower(-.85);
-            } else {
-                slide.setPower(.05);
-            }
 
-             */
-                if (G1A) {
+                if (G2UD) { // Upward
+                    slide.setPower(0.85);
+                    right_servo_slide.setPosition(.35);
+                } else if (G2DD) {
+                    slide.setPower(-.85);
+                    right_servo_slide.setPosition(.35);
+                } else {
+                    slide.setPower(.05);
+                }
+
+                if (G2Y) {
+                    wheel_bucket.setPower(1);
+                } else {
+                    wheel_bucket.setPower(0);
+                }
+
+
+                if (G2A) {
                     right_servo_lift.setPosition(.32);
                     sleep(400);
                     drone.setPower(1);
@@ -196,14 +217,7 @@ public class Fortnite_God extends LinearOpMode {
 
                     drone.setPower(0);
                 }
-            /*
-            if (G2X) {
-                flipper_bucket.setPosition(.5);
-            } else if (G2B) {
-                flipper_bucket.setPosition(1);
-            }
 
-             */
 
                 if (G1RT > 0) {
                     left_lift.setPower(1);
@@ -215,14 +229,24 @@ public class Fortnite_God extends LinearOpMode {
                     left_lift.setPower(0);
                     right_lift.setPower(0);
                 }
-                if (G1rightBumper) {
-                    left_servo_lift.setPosition(1);
-                    right_servo_lift.setPosition(0);
+                if (G1A && hanging == false) {
+
+                    left_servo_lift.setPosition(.5);
+                    right_servo_lift.setPosition(.2);
+                    hanging = true;
                 }else if (G1Y){
                     //right_servo_lift.setPosition(0.4);
-                }else if (G1leftBumper) {
+                }else if (G1A && hanging == true) {
                     left_servo_lift.setPosition(0);
-                    right_servo_lift.setPosition(.6);
+                    right_servo_lift.setPosition(.7);
+                    hanging = false;
+                } else if (G2A) {
+                    right_servo_slide.setPosition(.35);     //Left Position not in play currently
+                    left_servo_slide.setPosition(.65);      //Nuetral == .25 (Right)
+                                                            //intake == ?    (Right)
+                } else if (G2B) {
+                    right_servo_slide.setPosition(.65);
+                    left_servo_slide.setPosition(.25);
                 }
 
 
