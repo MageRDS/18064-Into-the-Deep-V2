@@ -170,15 +170,15 @@ public class RRRedRight extends LinearOpMode {
         Trajectory traj1_6 = drive.trajectoryBuilder(traj1_5.end())
                 .back(37)
                 .addTemporalMarker(0, () -> {
-                    dread.setPower(-1);
+                    dread.setPower(1);
+                })
+                .addTemporalMarker(1.6, () -> {
+                    dread.setPower(0);
                 })
                 .build();
 
         TrajectorySequence traj_wait = drive.trajectorySequenceBuilder(traj1_6.end())
-                .waitSeconds(7)
-                .addTemporalMarker(0.5, () -> {
-                    dread.setPower(0);
-                })
+                .waitSeconds(5.5)
                 .addTemporalMarker(1, () -> {
                     outtake.setPosition(0);
                 })
@@ -186,13 +186,12 @@ public class RRRedRight extends LinearOpMode {
                     outtake.setPosition(1);
                 })
                 .addTemporalMarker(4.5, () -> {
-                    dread.setPower(1);
+                    dread.setPower(-1);
                 })
-                .addTemporalMarker(6.5, () -> {
+                .addTemporalMarker(5, () -> {
                     dread.setPower(0);
                 })
                 .build();
-
         Trajectory traj1_7 = drive.trajectoryBuilder(traj_wait.end())
                 .strafeLeft(32)
                 .build();
