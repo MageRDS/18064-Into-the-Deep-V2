@@ -162,11 +162,11 @@ public class BlueAudience extends LinearOpMode {
 
 
         Trajectory left_traj1 = drive.trajectoryBuilder(new Pose2d())
-                .back(28)
+                .back(32)
                 .build();
 
         TrajectorySequence left_traj2 = drive.trajectorySequenceBuilder(left_traj1.end())
-                .turn(Math.toRadians(-270))
+                .turn(Math.toRadians(-265))
                 .build();
 
         Trajectory left_traj3 = drive.trajectoryBuilder(left_traj2.end())
@@ -218,6 +218,8 @@ public class BlueAudience extends LinearOpMode {
                 .back(100)
                 .build();
         // -------------------- ID 3 Trajectories -----------
+
+
         Trajectory right_traj1 = drive.trajectoryBuilder(new Pose2d())
                 .back(17)
                 .build();
