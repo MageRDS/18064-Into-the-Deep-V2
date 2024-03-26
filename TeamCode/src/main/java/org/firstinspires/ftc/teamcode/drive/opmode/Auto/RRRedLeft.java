@@ -187,24 +187,27 @@ public class RRRedLeft extends LinearOpMode {
         Trajectory traj2_5 = drive.trajectoryBuilder(traj2_4.end())
                 .strafeRight(28)
                 .build();
+        Trajectory traj2_6 = drive.trajectoryBuilder(traj2_5.end())
+                .back(98)
+                .build();
 
+        Trajectory trajStart3 = drive.trajectoryBuilder(new Pose2d())
+                .back(30.5)
+                .build();
 
-        Trajectory traj3_1 = drive.trajectoryBuilder(trajStart.end())
-                .strafeLeft(5)
+        TrajectorySequence traj3_1 = drive.trajectorySequenceBuilder(trajStart3.end())
+                .turn(Math.toRadians(270))
                 .build();
         Trajectory traj3_2 = drive.trajectoryBuilder(traj3_1.end())
-                .forward(10)
+                .back(8)
                 .build();
         Trajectory traj3_3 = drive.trajectoryBuilder(traj3_2.end())
-                .strafeLeft(30)
+                .forward(15)
                 .build();
-        TrajectorySequence traj3_4 = drive.trajectorySequenceBuilder(traj3_3.end())
-                .turn(Math.toRadians(-90))
+        Trajectory traj3_4 = drive.trajectoryBuilder(traj3_3.end())
+                .strafeRight(20)
                 .build();
-        Trajectory traj3_5 = drive.trajectoryBuilder(traj3_4.end())
-                .back(4)
-                .build();
-        TrajectorySequence traj_wait3 = drive.trajectorySequenceBuilder(traj3_5.end())
+        TrajectorySequence traj_wait3 = drive.trajectorySequenceBuilder(traj3_2.end())
                 .waitSeconds(5.5)
                 .addTemporalMarker(0, () -> {
                     dread.setPower(-1);
@@ -244,13 +247,13 @@ public class RRRedLeft extends LinearOpMode {
 
                 if (spikeLocation() == 3) {
 
-                    /*
-                    drive.followTrajectory(trajStart);
-                    drive.followTrajectory(traj3_1);
+
+                    drive.followTrajectory(trajStart3);
+                    drive.followTrajectorySequence(traj3_1);
                     drive.followTrajectory(traj3_2);
                     drive.followTrajectory(traj3_3);
-                    drive.followTrajectorySequence(traj3_4);
-                    drive.followTrajectory(traj3_5);
+                    drive.followTrajectory(traj3_4);
+                    /*
                     drive.followTrajectorySequence(traj_wait3);
                     drive.followTrajectory(traj3_6);
                     drive.followTrajectory(traj3_7);*/
@@ -260,6 +263,7 @@ public class RRRedLeft extends LinearOpMode {
                     drive.followTrajectorySequence(traj2_3);
                     drive.followTrajectory(traj2_4);
                     drive.followTrajectory(traj2_5);
+                    drive.followTrajectory(traj2_6);
                 } else {
                     drive.followTrajectory(trajStart);
                     drive.followTrajectorySequence(traj1_1);
