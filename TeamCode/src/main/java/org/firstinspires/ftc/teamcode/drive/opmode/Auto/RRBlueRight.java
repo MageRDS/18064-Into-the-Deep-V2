@@ -143,7 +143,7 @@ public class RRBlueRight extends LinearOpMode {
 
 
         Trajectory traj3_1 = drive.trajectoryBuilder(new Pose2d())
-                .back(25.5)
+                .back(27.5)
                 .build();
         TrajectorySequence traj3_2 = drive.trajectorySequenceBuilder(traj3_1.end())
                 .turn(Math.toRadians(270))
