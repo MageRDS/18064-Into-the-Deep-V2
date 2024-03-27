@@ -166,7 +166,7 @@ public class BlueAudience extends LinearOpMode {
                 .build();
 
         TrajectorySequence left_traj2 = drive.trajectorySequenceBuilder(left_traj1.end())
-                .turn(Math.toRadians(-265))
+                .turn(Math.toRadians(-267))
                 .build();
 
         Trajectory left_traj3 = drive.trajectoryBuilder(left_traj2.end())
@@ -177,7 +177,7 @@ public class BlueAudience extends LinearOpMode {
                 .build();
 
         TrajectorySequence left_traj5 = drive.trajectorySequenceBuilder(left_traj4.end())
-                .turn(Math.toRadians(-90))
+                .turn(Math.toRadians(-93))
                 .build();
 
         Trajectory left_traj6 = drive.trajectoryBuilder(left_traj5.end())
@@ -221,7 +221,7 @@ public class BlueAudience extends LinearOpMode {
 
 
         Trajectory right_traj1 = drive.trajectoryBuilder(new Pose2d())
-                .back(17)
+                .back(20)
                 .build();
         Trajectory right_traj2 = drive.trajectoryBuilder(right_traj1.end())
                 .strafeLeft(13)
@@ -438,10 +438,10 @@ public class BlueAudience extends LinearOpMode {
 
         for (Recognition recognition : currentRecognitions) {
 
-            if (recognition.getLeft() <= 322) {
+            if (recognition.getLeft() <= 250) {
                 location = 2;
                 telemetry.addData("Spike mark location: ", "center");
-            } else if (recognition.getLeft() > 322) {
+            } else if (recognition.getLeft() > 250) {
                 location = 3;
                 telemetry.addData("Spike mark location: ", "right");
             } else {
