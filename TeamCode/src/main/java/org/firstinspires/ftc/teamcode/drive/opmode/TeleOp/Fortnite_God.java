@@ -152,7 +152,7 @@ public class Fortnite_God extends LinearOpMode {
                 if (G1B) { // Intake Forward
                     Intake.setPower(-0.7);
                     wheel_bucket.setPower(-1);
-                    right_servo_slide.setPosition(.68);
+
 
 
                 } else if (abs(gamepad1.left_stick_y + gamepad1.right_stick_x + gamepad1.left_stick_x) > 0) {
@@ -192,13 +192,10 @@ public class Fortnite_God extends LinearOpMode {
 
                 if (G2Y) {
                     wheel_bucket.setPower(1);
-                }
 
 
-                if (G2A) {
-                    right_servo_lift.setPosition(.32);
-                    sleep(400);
-                    drone.setPower(1);
+
+
 
                 } else {
 
@@ -234,6 +231,8 @@ public class Fortnite_God extends LinearOpMode {
                 } else if (G2B) {
                     right_servo_slide.setPosition(.65);
                     left_servo_slide.setPosition(.25);
+                }else if (G2Y){
+                    wheel_bucket.setPower(1);
                 }
 
 
