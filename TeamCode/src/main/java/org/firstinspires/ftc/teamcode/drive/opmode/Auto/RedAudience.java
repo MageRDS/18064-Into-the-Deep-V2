@@ -163,7 +163,7 @@ public class RedAudience extends LinearOpMode {
 
 
         Trajectory left_traj1 = drive.trajectoryBuilder(new Pose2d())
-                .back(30)
+                .back(20)
                 .build();
 
         TrajectorySequence left_traj2 = drive.trajectorySequenceBuilder(left_traj1.end())
@@ -178,10 +178,10 @@ public class RedAudience extends LinearOpMode {
                 .build();
 
         Trajectory left_traj5 = drive.trajectoryBuilder(left_traj4.end())
-                .strafeLeft(26)
+                .strafeLeft(13)
                 .build();
         Trajectory left_traj6 = drive.trajectoryBuilder(left_traj5.end())
-                .forward(80)
+                .forward(95)
                 .build();
         Trajectory left_traj7 = drive.trajectoryBuilder(left_traj6.end())
                 .strafeRight(5)
@@ -204,7 +204,7 @@ public class RedAudience extends LinearOpMode {
                 .back(25)
                 .build();
         TrajectorySequence middle_traj5 = drive.trajectorySequenceBuilder(middle_traj4.end())
-                .turn(Math.toRadians(-91))
+                .turn(Math.toRadians(-93))
                 .build();
         Trajectory middle_traj6 = drive.trajectoryBuilder(middle_traj5.end())
                 .back(100)
@@ -214,13 +214,13 @@ public class RedAudience extends LinearOpMode {
                 .build();
         // -------------------- ID 3 Trajectories -----------
         Trajectory right_traj1 = drive.trajectoryBuilder(new Pose2d())
-                .back(25)
+                .back(30)
                 .build();
         TrajectorySequence right_traj2 = drive.trajectorySequenceBuilder(right_traj1.end())
                 .turn(Math.toRadians(-90))
                 .build();
         Trajectory right_traj3 = drive.trajectoryBuilder(right_traj2.end())
-                .back(5)
+                .back(7)
                 .build();
         Trajectory right_traj4 = drive.trajectoryBuilder(right_traj3.end())
                 .forward(10)

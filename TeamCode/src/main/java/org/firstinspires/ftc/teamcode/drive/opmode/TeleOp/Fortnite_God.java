@@ -156,7 +156,7 @@ public class Fortnite_God extends LinearOpMode {
 
 
                 } else if (abs(gamepad1.left_stick_y + gamepad1.right_stick_x + gamepad1.left_stick_x) > 0) {
-                    right_servo_slide.setPosition(.6);
+                    right_servo_slide.setPosition(.35);
 
 
 
@@ -224,12 +224,12 @@ public class Fortnite_God extends LinearOpMode {
                     left_servo_lift.setPosition(0);
                     right_servo_lift.setPosition(.7);
 
-                } else if (G2A) {
+                } else if (G2X) {
                     right_servo_slide.setPosition(.35);     //Left Position not in play currently
                     left_servo_slide.setPosition(.65);      //Nuetral == .25 (Right)
                                                             //intake == ?    (Right)
                 } else if (G2B) {
-                    right_servo_slide.setPosition(.65);
+                    right_servo_slide.setPosition(.7);
                     left_servo_slide.setPosition(.25);
                 }else if (G2Y){
                     wheel_bucket.setPower(1);
