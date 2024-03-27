@@ -164,7 +164,7 @@ public class RRRedLeft extends LinearOpMode {
                 .build();
 
         Trajectory traj1_5 = drive.trajectoryBuilder(traj1_4.end())
-                .strafeRight(25)
+                .strafeRight(22)
                 .build();
 
         Trajectory traj1_6 = drive.trajectoryBuilder(traj1_5.end())

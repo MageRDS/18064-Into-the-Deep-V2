@@ -159,10 +159,10 @@ public class RRRedRight extends LinearOpMode {
                 .turn(Math.toRadians(180))
                 .build();
         Trajectory traj1_5 = drive.trajectoryBuilder(traj1_4.end())
-                .strafeRight(8)
+                .strafeRight(5)
                 .build();
         Trajectory traj1_6 = drive.trajectoryBuilder(traj1_5.end())
-                .back(37)
+                .back(37.5)
                 .addTemporalMarker(0, () -> {
                     dread.setPower(1);
                 })
@@ -200,7 +200,7 @@ public class RRRedRight extends LinearOpMode {
                 .turn(Math.toRadians(-90))
                 .build();
         Trajectory traj2_4 = drive.trajectoryBuilder(traj2_3.end())
-                .back(39)
+                .back(40)
                 .addTemporalMarker(0, () -> {
                     dread.setPower(1);
                 })
@@ -227,7 +227,7 @@ public class RRRedRight extends LinearOpMode {
                 })
                 .build();
         Trajectory traj2_6 = drive.trajectoryBuilder(traj2wait.end())
-                .strafeLeft(39)
+                .strafeLeft(26)
                 .build();
 
         Trajectory traj3_1 = drive.trajectoryBuilder(trajStart.end())
@@ -243,7 +243,7 @@ public class RRRedRight extends LinearOpMode {
                 .turn(Math.toRadians(-90))
                 .build();
         Trajectory traj3_5 = drive.trajectoryBuilder(traj3_4.end())
-                .back(4)
+                .back(5)
                 .build();
         TrajectorySequence traj_wait3 = drive.trajectorySequenceBuilder(traj3_5.end())
                 .waitSeconds(6.5)
