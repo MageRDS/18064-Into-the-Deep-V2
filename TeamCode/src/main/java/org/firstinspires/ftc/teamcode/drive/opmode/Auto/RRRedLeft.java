@@ -205,34 +205,10 @@ public class RRRedLeft extends LinearOpMode {
                 .forward(15)
                 .build();
         Trajectory traj3_4 = drive.trajectoryBuilder(traj3_3.end())
-                .strafeRight(20)
+                .strafeRight(17)
                 .build();
-        TrajectorySequence traj_wait3 = drive.trajectorySequenceBuilder(traj3_2.end())
-                .waitSeconds(5.5)
-                .addTemporalMarker(0, () -> {
-                    dread.setPower(-1);
-                })
-                .addTemporalMarker(2.8, () -> {
-                    dread.setPower(0);
-                })
-                .addTemporalMarker(0.8, () -> {
-                    outtake.setPosition(0);
-                })
-                .addTemporalMarker(3.5, () -> {
-                    outtake.setPosition(1);
-                })
-                .addTemporalMarker(4, () -> {
-                    dread.setPower(1);
-                })
-                .addTemporalMarker(5, () -> {
-                    dread.setPower(0);
-                })
-                .build();
-        Trajectory traj3_6 = drive.trajectoryBuilder(traj_wait3.end())
-                .forward(5)
-                .build();
-        Trajectory traj3_7 = drive.trajectoryBuilder(traj3_6.end())
-                .strafeLeft(18)
+        Trajectory traj3_5 = drive.trajectoryBuilder(traj3_4.end())
+                .back(97)
                 .build();
 
 
@@ -253,6 +229,7 @@ public class RRRedLeft extends LinearOpMode {
                     drive.followTrajectory(traj3_2);
                     drive.followTrajectory(traj3_3);
                     drive.followTrajectory(traj3_4);
+                    drive.followTrajectory(traj3_5);
                     /*
                     drive.followTrajectorySequence(traj_wait3);
                     drive.followTrajectory(traj3_6);
