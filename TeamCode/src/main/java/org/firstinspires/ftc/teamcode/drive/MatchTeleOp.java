@@ -271,7 +271,7 @@ public class MatchTeleOp extends LinearOpMode {
                 sleep(1000);
                 drone.setPosition(0.5);
                 sleep(500);
-                leftPull.setPosition(0.6);
+                leftPull.setPosition(0.05);
                 //rightPull.setPosition(0.5);
                 //moving into claw and linear slides (second controller)
 
@@ -303,10 +303,10 @@ public class MatchTeleOp extends LinearOpMode {
                 dread.setPower(0);
             }
 
-            if (G2leftBumper) { // moves suspender arm down(second controller)
+            if (G2leftBumper) { // moves suspender arm up(second controller)
                 leftPull.setPosition(0.05);
                 //rightPull.setPosition(0);
-            } else if (G2rightBumper) { // moves suspender arm up(second controller)
+            } else if (G2rightBumper) { // moves suspender arm down(second controller)
                 leftPull.setPosition(0.6);
                 //rightPull.setPosition(0.5);
             }

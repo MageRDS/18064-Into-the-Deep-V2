@@ -54,9 +54,9 @@ import java.util.List;
  * Use Android Studio to Copy this Class, and Paste it into your team's code folder with a new name.
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list.
  */
-@Autonomous(name = "RRBlueRight", group = "Concept")
+@Autonomous(name = "RRRedLeft_BACKSTAGE", group = "Concept")
 //@Disabled
-public class RRBlueRight extends LinearOpMode {
+public class RRRedLeft_BACKSTAGE extends LinearOpMode {
 
     private DcMotor leftFront = null;
     private DcMotor rightFront = null;
@@ -76,13 +76,13 @@ public class RRBlueRight extends LinearOpMode {
 
     // TFOD_MODEL_ASSET points to a model file stored in the project Asset location,
     // this is only used for Android Studio when using models in Assets.
-    private static final String TFOD_MODEL_ASSET = "blue_flex2.tflite";
+    private static final String TFOD_MODEL_ASSET = "red_flex.tflite";
     // TFOD_MODEL_FILE points to a model file stored onboard the Robot Controller's storage,
     // this is used when uploading models directly to the RC using the model upload interface.
     private static final String TFOD_MODEL_FILE = "/sdcard/FIRST/tflitemodels/myCustomModel.tflite";
     // Define the labels recognized in the model for TFOD (must be in training order!)
     private static final String[] LABELS = {
-            "blue_flex",
+            "red_flex",
     };
 
     /**
@@ -139,131 +139,101 @@ public class RRBlueRight extends LinearOpMode {
 
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-        Pose2d startPos = new Pose2d(-32, 68, Math.toRadians(180));
+        Pose2d startPos = new Pose2d(12.5, -68, Math.toRadians(270));
 
 
-        Trajectory traj3_1 = drive.trajectoryBuilder(new Pose2d())
-                .back(31.5)
-                .build();
-        TrajectorySequence traj3_2 = drive.trajectorySequenceBuilder(traj3_1.end())
-                .turn(Math.toRadians(270))
-                .build();
-        Trajectory traj3_3 = drive.trajectoryBuilder(traj3_2.end())
-                .back(5)
-                .build();
-        Trajectory traj3_4 = drive.trajectoryBuilder(traj3_3.end())
-                .forward(7)
-                .build();
-        TrajectorySequence traj3_5 = drive.trajectorySequenceBuilder(traj3_4.end())
-                .turn(Math.toRadians(90))
-                .build();
-        Trajectory traj3_6 = drive.trajectoryBuilder(traj3_5.end())
-                .back(19)
-                .build();
-        TrajectorySequence traj3_7 = drive.trajectorySequenceBuilder(traj3_6.end())
-                .turn(Math.toRadians(90))
-                .build();
-        Trajectory traj3_8 = drive.trajectoryBuilder(traj3_7.end())
-                .back(80)
-                .build();
-        Trajectory traj3_9 = drive.trajectoryBuilder(traj3_8.end())
-                .strafeRight(30)
-                .build();
-        Trajectory traj3_10 = drive.trajectoryBuilder(traj3_9.end())
-                .back(10)
-                .addTemporalMarker(0, () -> {
-                    dread.setPower(-1);
-                })
-                .build();
-        TrajectorySequence traj3_11 = drive.trajectorySequenceBuilder(traj3_10.end())
-                .waitSeconds(7.5)
-                .addTemporalMarker(1, () -> {
-                    dread.setPower(0);
-                })
-                .addTemporalMarker(1.5, () -> {
-                    outtake.setPosition(0);
-                })
-                .addTemporalMarker(4,5, () -> {
-                    outtake.setPosition(1);
-                })
-                .addTemporalMarker(5, () -> {
-                    dread.setPower(1);
-                })
-                .addTemporalMarker(7, () -> {
-                    dread.setPower(0);
-                })
-                .build();
-        Trajectory traj3_12 = drive.trajectoryBuilder(traj3_11.end())
-                .strafeLeft(30)
-                .build();
 
-        Trajectory traj1_1 = drive.trajectoryBuilder(new Pose2d())
+        Trajectory trajStart = drive.trajectoryBuilder(new Pose2d())
                 .back(25.5)
                 .build();
-        TrajectorySequence traj1_2 = drive.trajectorySequenceBuilder(traj1_1.end())
+
+        TrajectorySequence traj1_1 = drive.trajectorySequenceBuilder(trajStart.end())
                 .turn(Math.toRadians(90))
                 .build();
-        Trajectory traj1_3 = drive.trajectoryBuilder(traj1_2.end())
-                .back(8)
+
+        Trajectory traj1_2 = drive.trajectoryBuilder(traj1_1.end())
+                .back(1)
                 .build();
-        Trajectory traj1_4 = drive.trajectoryBuilder(traj1_3.end())
-                .forward(10)
+
+        Trajectory traj1_3 = drive.trajectoryBuilder(traj1_1.end())
+                .forward(5)
                 .build();
-        TrajectorySequence traj1_5 = drive.trajectorySequenceBuilder(traj1_4.end())
-                .turn(Math.toRadians(270))
+
+        TrajectorySequence traj1_4 = drive.trajectorySequenceBuilder(traj1_3.end())
+                .turn(Math.toRadians(180))
                 .build();
+
+        Trajectory traj1_5 = drive.trajectoryBuilder(traj1_4.end())
+                .strafeRight(22)
+                .build();
+
         Trajectory traj1_6 = drive.trajectoryBuilder(traj1_5.end())
-                .back(23)
+                .back(87)
                 .build();
-        TrajectorySequence traj1_7 = drive.trajectorySequenceBuilder(traj1_6.end())
-                .turn(Math.toRadians(90))
-                .build();
-        Trajectory traj1_8 = drive.trajectoryBuilder(traj1_7.end())
-                .back(97)
-                .build();
+
 
         Trajectory traj2_1 = drive.trajectoryBuilder(new Pose2d())
-                .back(30)
+                .back(29)
                 .build();
         Trajectory traj2_2 = drive.trajectoryBuilder(traj2_1.end())
-                .forward(10)
+                .forward(8)
                 .build();
         TrajectorySequence traj2_3 = drive.trajectorySequenceBuilder(traj2_2.end())
-                .turn(Math.toRadians(90))
+                .turn(Math.toRadians(-90))
                 .build();
         Trajectory traj2_4 = drive.trajectoryBuilder(traj2_3.end())
-                .forward(20)
+                .forward(15)
                 .build();
         Trajectory traj2_5 = drive.trajectoryBuilder(traj2_4.end())
-                .strafeLeft(31)
+                .strafeRight(28)
                 .build();
         Trajectory traj2_6 = drive.trajectoryBuilder(traj2_5.end())
-                .back(109)
+                .back(98)
                 .build();
 
+        Trajectory trajStart3 = drive.trajectoryBuilder(new Pose2d())
+                .back(30.5)
+                .build();
+
+        TrajectorySequence traj3_1 = drive.trajectorySequenceBuilder(trajStart3.end())
+                .turn(Math.toRadians(270))
+                .build();
+        Trajectory traj3_2 = drive.trajectoryBuilder(traj3_1.end())
+                .back(8)
+                .build();
+        Trajectory traj3_3 = drive.trajectoryBuilder(traj3_2.end())
+                .forward(15)
+                .build();
+        Trajectory traj3_4 = drive.trajectoryBuilder(traj3_3.end())
+                .strafeRight(17)
+                .build();
+        Trajectory traj3_5 = drive.trajectoryBuilder(traj3_4.end())
+                .back(97)
+                .build();
 
 
         if (opModeIsActive()) {
             while (opModeIsActive()) {
+
+
 
                 telemetryTfod();
                 // Push telemetry to the Driver Station.
                 telemetry.update();
 
                 if (spikeLocation() == 3) {
-                    drive.followTrajectory(traj3_1);
-                    drive.followTrajectorySequence(traj3_2);
+
+
+                    drive.followTrajectory(trajStart3);
+                    drive.followTrajectorySequence(traj3_1);
+                    drive.followTrajectory(traj3_2);
                     drive.followTrajectory(traj3_3);
                     drive.followTrajectory(traj3_4);
-                    drive.followTrajectorySequence(traj3_5);
+                    drive.followTrajectory(traj3_5);
+                    /*
+                    drive.followTrajectorySequence(traj_wait3);
                     drive.followTrajectory(traj3_6);
-                    drive.followTrajectorySequence(traj3_7);
-                    drive.followTrajectory(traj3_8);
-                    /*drive.followTrajectory(traj3_9);
-                    drive.followTrajectory(traj3_10);
-                    drive.followTrajectorySequence(traj3_11);
-                    drive.followTrajectory(traj3_12);*/
-
+                    drive.followTrajectory(traj3_7);*/
                 } else if (spikeLocation() == 2) {
                     drive.followTrajectory(traj2_1);
                     drive.followTrajectory(traj2_2);
@@ -271,22 +241,19 @@ public class RRBlueRight extends LinearOpMode {
                     drive.followTrajectory(traj2_4);
                     drive.followTrajectory(traj2_5);
                     drive.followTrajectory(traj2_6);
-                    //CODE TO DEPOSIT PRELOAD ON CENTER SPIKE MARK
-                    //ORIENT ROBOT
-
-
                 } else {
-                    drive.followTrajectory(traj1_1);
-                    drive.followTrajectorySequence(traj1_2);
+                    drive.followTrajectory(trajStart);
+                    drive.followTrajectorySequence(traj1_1);
+                    //drive.followTrajectory(traj1_2);
                     drive.followTrajectory(traj1_3);
-                    drive.followTrajectory(traj1_4);
-                    drive.followTrajectorySequence(traj1_5);
+                    drive.followTrajectorySequence(traj1_4);
+                    drive.followTrajectory(traj1_5);
                     drive.followTrajectory(traj1_6);
-                    drive.followTrajectorySequence(traj1_7);
-                    drive.followTrajectory(traj1_8);
+                    //CODE TO DEPOSIT PRELOAD ON LEFT SPIKE MARK
+                    //ORIENT ROBOT
                 }
 
-                //DRIVE ROBOT TO PARK
+
 
                 // Save CPU resources; can resume streaming when needed.
                 if (gamepad1.dpad_down) {
@@ -295,6 +262,8 @@ public class RRBlueRight extends LinearOpMode {
                     visionPortal.resumeStreaming();
                 }
 
+                // Share the CPU.
+                sleep(20);
 
                 sleep(30000);
             }
@@ -398,10 +367,10 @@ public class RRBlueRight extends LinearOpMode {
 
         for (Recognition recognition : currentRecognitions) {
 
-            if (recognition.getLeft() <= 350) {
+            if (recognition.getLeft() <= 386) {
                 location = 2;
                 telemetry.addData("Spike mark location: ", "center");
-            } else if (recognition.getLeft() > 350) {
+            } else if (recognition.getLeft() > 386) {
                 location = 3;
                 telemetry.addData("Spike mark location: ", "right");
             } else {
@@ -614,11 +583,11 @@ public class RRBlueRight extends LinearOpMode {
 
     public void backdropDeposit() {
         outtake.setPosition(0);
-        sleep(1500);
+        sleep(1000);
         driveForward(50,0.3);
         sleep(500);
         outtake.setPosition(1);
-        sleep(1000);
+
     }
 
     public void dreadIn(int time) {
