@@ -284,13 +284,13 @@ public class RRRedLeft_BACKSTAGE extends LinearOpMode {
                 .forward(15)
                 .build();
         Trajectory traj3_4 = drive.trajectoryBuilder(traj3_3.end())
-                .strafeRight(17)
+                .strafeRight(18)
                 .build();
         Trajectory traj3_5 = drive.trajectoryBuilder(traj3_4.end())
-                .back(99)
+                .back(98)
                 .build();
         Trajectory traj3_6 = drive.trajectoryBuilder(traj3_5.end())
-                .strafeLeft(32)
+                .strafeLeft(29)
                 /*
                 .addTemporalMarker(0, () -> {
                     dread.setPower(1);
@@ -324,7 +324,7 @@ public class RRRedLeft_BACKSTAGE extends LinearOpMode {
                 })
                 .build();
         Trajectory traj3_7 = drive.trajectoryBuilder(traj3_wait.end())
-                .strafeRight(34)
+                .strafeRight(33)
                 .build();
         Trajectory traj3_8 = drive.trajectoryBuilder(traj3_7.end())
                 .back(4)
