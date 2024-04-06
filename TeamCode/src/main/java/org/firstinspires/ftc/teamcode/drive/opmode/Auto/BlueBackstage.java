@@ -74,7 +74,7 @@ public class BlueBackstage extends LinearOpMode {
     private Servo right_servo_lift;
 
     private Servo flipper_bucket;
-
+    private Servo right_servo_slide;
     private DcMotor slide = null;
     private CRServo drone = null;
 
@@ -131,7 +131,7 @@ public class BlueBackstage extends LinearOpMode {
         right_servo_lift = hardwareMap.get(Servo.class, "right_servo_lift");
 
 
-
+        right_servo_slide = hardwareMap.get(Servo.class, "right_servo_slide");
         leftFront.setDirection(DcMotor.Direction.REVERSE);
         rightFront.setDirection(DcMotor.Direction.FORWARD);
         leftRear.setDirection(DcMotor.Direction.REVERSE);
@@ -422,43 +422,71 @@ public class BlueBackstage extends LinearOpMode {
 
         slide.setPower(-power);
 
+        right_servo_slide.setPosition(.75);
 
-        while (-slide.getCurrentPosition() < distance) {
+
+
+
+        while (slide.getCurrentPosition() > -distance) {
             telemetry.addData("Arm Encoder", slide.getCurrentPosition());
             telemetry.update();
         }
 
-        slide.setPower(0);
+        slide.setPower(.001);
+
+
 
         sleep(500);
 
     }
 
 
-    public void armUp(double power, String mode) {
+    public void DripDrop(){
+        armUp(1800,.6);
+        sleep(250);
+        flipperBlipper(1);
+        sleep(1000);
+        armDown(1600,0.6);
+    }
+
+
+    public void armUp(double distance, double power) {
 
         //Reset Encoders
         slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+
         slide.setPower(power);
-        if (mode == "Up"){
-            slide.setPower(power);
+        right_servo_slide.setPosition(.75);
+
+
+
+        while (slide.getCurrentPosition() < distance) {
+            telemetry.addData("Arm Encoder", slide.getCurrentPosition());
+            telemetry.update();
         }
 
-        if (mode == "Down"){
-            slide.setPower(-power);
-        }
-        if (mode == "stop"){
-            slide.setPower(0);
-        }
+        slide.setPower(.001);
 
 
 
-        slide.setPower(0);
-
-        sleep(1000);
+        sleep(500);
 
     }
 
+    public void flipperBlipper(int Position) {
+        if (Position == 1) {
+
+            right_servo_slide.setPosition(.18);
+            sleep(500);
+            wheel_bucket.setPower(1);
+            sleep(1000);
+            wheel_bucket.setPower(0);
+            sleep(500);
+            right_servo_slide.setPosition(.75);
+            sleep(1000);
+
+        }
+    }
 } // end class
