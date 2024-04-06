@@ -76,11 +76,13 @@ public class BlueAudience extends LinearOpMode {
     private Servo flipper_bucket;
 
     private DcMotor slide = null;
-    private CRServo drone = null;
+
 
     private DcMotor left_lift = null;
 
     private DcMotor right_lift = null;
+
+    private Servo right_servo_slide;
 
 
 
@@ -125,10 +127,12 @@ public class BlueAudience extends LinearOpMode {
 
         wheel_bucket = hardwareMap.get(CRServo.class, "wheel_bucket"); // Port 5 Expansion Hub
         flipper_bucket = hardwareMap.get(Servo.class, "flipper_bucket"); // port 4 Expansion Hub
-        drone = hardwareMap.get(CRServo.class, "drone");
+
 
         left_servo_lift = hardwareMap.get(Servo.class, "left_servo_lift");
         right_servo_lift = hardwareMap.get(Servo.class, "right_servo_lift");
+
+        right_servo_slide = hardwareMap.get(Servo.class, "right_servo_slide");
 
 
 
@@ -142,7 +146,7 @@ public class BlueAudience extends LinearOpMode {
 
 
 
-        drone.setDirection(DcMotorSimple.Direction.FORWARD);
+
 
 
         // Wait for the DS start button to be touched.
@@ -162,11 +166,11 @@ public class BlueAudience extends LinearOpMode {
 
 
         Trajectory left_traj1 = drive.trajectoryBuilder(new Pose2d())
-                .back(30)
+                .back(22)
                 .build();
 
         TrajectorySequence left_traj2 = drive.trajectorySequenceBuilder(left_traj1.end())
-                .turn(Math.toRadians(-267))
+                .turn(Math.toRadians(50))
                 .build();
 
         Trajectory left_traj3 = drive.trajectoryBuilder(left_traj2.end())
@@ -177,22 +181,24 @@ public class BlueAudience extends LinearOpMode {
                 .build();
 
         TrajectorySequence left_traj5 = drive.trajectorySequenceBuilder(left_traj4.end())
-                .turn(Math.toRadians(-93))
+                .turn(Math.toRadians(-50))
                 .build();
 
+
+
         Trajectory left_traj6 = drive.trajectoryBuilder(left_traj5.end())
-                .back(25)
+                .back(28)
                 .build();
 
         TrajectorySequence left_traj7 = drive.trajectorySequenceBuilder(left_traj6.end())
-                .turn(Math.toRadians(-90))
+                .turn(Math.toRadians(90))
                 .build();
 
         Trajectory left_traj8 = drive.trajectoryBuilder(left_traj7.end())
-                .forward(90)
+                .back(89)
                 .build();
         Trajectory left_traj9 = drive.trajectoryBuilder(left_traj8.end())
-                .strafeLeft(5)
+                .strafeRight(31)
                 .build();
 
 
@@ -215,7 +221,10 @@ public class BlueAudience extends LinearOpMode {
                 .turn(Math.toRadians(93))
                 .build();
         Trajectory middle_traj6 = drive.trajectoryBuilder(middle_traj5.end())
-                .back(100)
+                .back(104.5)
+                .build();
+        Trajectory middle_traj7 = drive.trajectoryBuilder(middle_traj6.end())
+                .strafeRight(23)
                 .build();
         // -------------------- ID 3 Trajectories -----------
 
@@ -239,7 +248,10 @@ public class BlueAudience extends LinearOpMode {
                 .turn(Math.toRadians(90))
                 .build();
         Trajectory right_traj7 = drive.trajectoryBuilder(right_traj6.end())
-                .back(95)
+                .back(84.5)
+                .build();
+        Trajectory right_traj8 = drive.trajectoryBuilder(right_traj7.end())
+                .strafeRight(21.5)
                 .build();
 
 
@@ -255,9 +267,8 @@ public class BlueAudience extends LinearOpMode {
 
                 // Push telemetry to the Driver Station.
                 telemetry.update();
-                sleep(2000);
 
-
+                sleep(8000);
 
 
 
@@ -270,6 +281,8 @@ public class BlueAudience extends LinearOpMode {
                     drive.followTrajectory(right_traj5);
                     drive.followTrajectorySequence(right_traj6);
                     drive.followTrajectory(right_traj7);
+                    drive.followTrajectory(right_traj8);
+                    DripDrop();
 
                     sleep(100000);
 
@@ -282,6 +295,9 @@ public class BlueAudience extends LinearOpMode {
                     drive.followTrajectory(middle_traj4);
                     drive.followTrajectorySequence(middle_traj5);
                     drive.followTrajectory(middle_traj6);
+                    drive.followTrajectory(middle_traj7);
+                    sleep(1000);
+                    DripDrop();
 
 
                     sleep(100000);
@@ -299,7 +315,8 @@ public class BlueAudience extends LinearOpMode {
                     drive.followTrajectorySequence(left_traj7);
                     drive.followTrajectory(left_traj8);
                     drive.followTrajectory(left_traj9);
-
+                    sleep(1000);
+                    DripDrop();
 
 
 
@@ -464,43 +481,77 @@ public class BlueAudience extends LinearOpMode {
 
         slide.setPower(-power);
 
+        right_servo_slide.setPosition(.75);
 
-        while (-slide.getCurrentPosition() < distance) {
+
+
+
+        while (slide.getCurrentPosition() > -distance) {
             telemetry.addData("Arm Encoder", slide.getCurrentPosition());
             telemetry.update();
         }
 
-        slide.setPower(0);
+        slide.setPower(.001);
+
+
 
         sleep(500);
 
     }
 
 
-    public void armUp(double power, String mode) {
+    public void DripDrop(){
+        armUp(1800,.6);
+        sleep(250);
+        flipperBlipper(1);
+        sleep(1000);
+        armDown(1600,0.6);
+    }
+
+
+    public void armUp(double distance, double power) {
 
         //Reset Encoders
         slide.setMode(DcMotor.RunMode.STOP_AND_RESET_ENCODER);
         slide.setMode(DcMotor.RunMode.RUN_USING_ENCODER);
 
+
         slide.setPower(power);
-        if (mode == "Up"){
-            slide.setPower(power);
+        right_servo_slide.setPosition(.75);
+
+
+
+        while (slide.getCurrentPosition() < distance) {
+            telemetry.addData("Arm Encoder", slide.getCurrentPosition());
+            telemetry.update();
         }
 
-        if (mode == "Down"){
-            slide.setPower(-power);
-        }
-        if (mode == "stop"){
-            slide.setPower(0);
-        }
+        slide.setPower(.001);
 
 
 
-        slide.setPower(0);
-
-        sleep(1000);
+        sleep(500);
 
     }
+
+    public void flipperBlipper(int Position){
+        if (Position == 1){
+
+            right_servo_slide.setPosition(.18);
+            sleep(500);
+            wheel_bucket.setPower(1);
+            sleep(1000);
+            wheel_bucket.setPower(0);
+            sleep(500);
+            right_servo_slide.setPosition(.75);
+            sleep(1000);
+
+
+        }
+    }
+
+
+
+
 
 } // end class
