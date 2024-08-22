@@ -30,7 +30,7 @@ public class MaxVelocityTuner extends LinearOpMode {
     public static double RUNTIME = 2.0;
 
     private ElapsedTime timer;
-    private double maxVelocity = 0.0;
+    private double maxVelocity = 15.468454991897499;
 
     private VoltageSensor batteryVoltageSensor;
 
