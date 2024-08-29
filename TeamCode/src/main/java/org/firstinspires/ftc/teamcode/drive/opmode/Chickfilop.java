@@ -74,9 +74,9 @@ public class Chickfilop extends LinearOpMode {
         // To drive forward, most robots need the motor on one side to be reversed, because the axles point in opposite directions.
         // Pushing the left stick forward MUST make robot go forward. So adjust these two lines based on your first test drive.
         // Note: The settings here assume direct drive on left and right wheels.  Gear Reduction or 90 Deg drives may require direction flips
-        leftFront.setDirection(DcMotor.Direction.FORWARD);
-        rightFront.setDirection(DcMotor.Direction.REVERSE);
-        leftRear.setDirection(DcMotor.Direction.FORWARD);
+        leftFront.setDirection(DcMotor.Direction.REVERSE);
+        rightFront.setDirection(DcMotor.Direction.FORWARD);
+        leftRear.setDirection(DcMotor.Direction.REVERSE);
         rightRear.setDirection(DcMotor.Direction.REVERSE);
 
         // Wait for the game to start (driver presses PLAY)
@@ -130,24 +130,39 @@ public class Chickfilop extends LinearOpMode {
 
             // POV Mode uses left stick to go forward, and right stick to turn.
             // - This uses basic math to combine motions and is easier to drive straight.
-            double drive = gamepad1.left_stick_y;
-            double turn  =  -gamepad1.right_stick_x;
+            double drive = -gamepad1.left_stick_y;
+            double turn  =  gamepad1.right_stick_x;
             leftFPower    = Range.clip(drive + turn, -1.0, 1.0) ;
             rightFPower = Range.clip(drive - turn, -1.0, 1.0) ;
             leftRPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-            rightRPower = -Range.clip(drive - turn, -1.0, 1.0) ;
+            rightRPower = Range.clip(drive - turn, -1.0, 1.0) ;
 
-            //strafe
-            // Tank Mode uses one stick to control each wheel.
-            // - This requires no math, but it is hard to drive forward slowly and keep straight.
-            // leftPower  = -gamepad1.left_stick_y ;
-            // rightPower = -gamepad1.right_stick_y ;
-
-            // Send calculated power to wheels
             leftFront.setPower(leftFPower);
             rightFront.setPower(rightFPower);
             leftRear.setPower(leftRPower);
             rightRear.setPower(rightRPower);
+
+            //strafe
+            if (G1RT == 1){
+                 leftFront.setPower(1);
+                 rightFront.setPower(-1);
+                 leftRear.setPower(-1);
+                 rightRear.setPower(1);
+            }else if (G1LT == 1){
+                 leftFront.setPower(-1);
+                 rightFront.setPower(1);
+                leftRear.setPower(1);
+                rightRear.setPower(-1);
+            }else{
+                leftFront.setPower(0);
+                rightFront.setPower(0);
+                leftRear.setPower(0);
+                rightRear.setPower(0);
+            }
+            // Tank Mode uses one stick to control each wheel.
+            // - This requires no math, but it is hard to drive forward slowly and keep straight.
+            // leftPower  = -gamepad1.left_stick_y ;
+            // rightPower = -gamepad1.right_stick_y ;
 
 
             // Show the elapsed game time and wheel power.
