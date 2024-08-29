@@ -48,9 +48,8 @@ import com.qualcomm.robotcore.util.Range;
  * Remove or comment out the @Disabled line to add this OpMode to the Driver Station OpMode list
  */
 
-@TeleOp(name="Mcteleop", group="Linear OpMode")
-@Disabled
-public class McTeleop extends LinearOpMode {
+@TeleOp(name="Chickfilop", group="Linear OpMode")
+public class Chickfilop extends LinearOpMode {
 
     // Declare OpMode members.
     private ElapsedTime runtime = new ElapsedTime();
@@ -93,17 +92,52 @@ public class McTeleop extends LinearOpMode {
             double leftRPower;
             double rightRPower;
 
+
+            double G1rightStickY = gamepad1.right_stick_y;
+            double G1leftStickY = gamepad1.left_stick_y;
+            double G1rightStickX = gamepad1.right_stick_x;
+            double G1leftStickX = gamepad1.left_stick_x;
+            boolean G1rightBumper = gamepad1.right_bumper;
+            boolean G1leftBumper = gamepad1.left_bumper;
+            boolean G1UD = gamepad1.dpad_up;   // up dpad
+            boolean G1DD = gamepad1.dpad_down; //Down dpad
+            boolean G1RD = gamepad1.dpad_right;// right dpad
+            boolean G1LD = gamepad1.dpad_left; //left dpad
+            boolean G1Y = gamepad1.y;
+            boolean G1B = gamepad1.b;
+            boolean G1X = gamepad1.x;
+            boolean G1A = gamepad1.a;
+            double G1RT = gamepad1.right_trigger;
+            double G1LT = gamepad1.left_trigger;
+            //Second controller (Intake/linear slide)
+            double G2leftStickY = gamepad2.left_stick_y;
+            boolean G2B = gamepad2.b;
+            boolean G2Y = gamepad2.y;
+            boolean G2A = gamepad2.a;
+            boolean G2X = gamepad2.x;
+            boolean G2UD = gamepad2.dpad_up; // up dpad
+            boolean G2DD = gamepad2.dpad_down; // down dpad
+            boolean G2RD = gamepad2.dpad_right;// right dpad
+            boolean G2LD = gamepad2.dpad_left; //left dpad
+            double G2LT = gamepad2.left_trigger;
+            double G2RT = gamepad2.right_trigger;
+            boolean G2rightBumper = gamepad2.right_bumper;
+            boolean G2leftBumper = gamepad2.left_bumper;
+            boolean G2back = gamepad2.back;
+
             // Choose to drive using either Tank Mode, or POV Mode
             // Comment out the method that's not used.  The default below is POV.
 
             // POV Mode uses left stick to go forward, and right stick to turn.
             // - This uses basic math to combine motions and is easier to drive straight.
-            double drive = -gamepad1.left_stick_y;
-            double turn  =  gamepad1.right_stick_x;
+            double drive = gamepad1.left_stick_y;
+            double turn  =  -gamepad1.right_stick_x;
             leftFPower    = Range.clip(drive + turn, -1.0, 1.0) ;
             rightFPower = Range.clip(drive - turn, -1.0, 1.0) ;
             leftRPower    = Range.clip(drive + turn, -1.0, 1.0) ;
-            rightRPower = Range.clip(drive - turn, -1.0, 1.0) ;
+            rightRPower = -Range.clip(drive - turn, -1.0, 1.0) ;
+
+            //strafe
             // Tank Mode uses one stick to control each wheel.
             // - This requires no math, but it is hard to drive forward slowly and keep straight.
             // leftPower  = -gamepad1.left_stick_y ;
