@@ -82,7 +82,6 @@ public class Chickfilop extends LinearOpMode {
         // Wait for the game to start (driver presses PLAY)
         waitForStart();
         runtime.reset();
-
         // run until the end of the match (driver presses STOP)
         while (opModeIsActive()) {
 
@@ -128,23 +127,29 @@ public class Chickfilop extends LinearOpMode {
             double drive = -gamepad1.left_stick_y;
             double turn  =  gamepad1.right_stick_x;
 
+            leftFPower = Range.clip(drive + turn, -1.0, 1.0);
+            rightFPower = Range.clip(drive - turn, -1.0, 1.0);
+            leftRPower = Range.clip(drive + turn, -1.0, 1.0);
+            rightRPower = Range.clip(drive - turn, -1.0, 1.0);
+
+            leftFront.setPower(leftFPower);
+            rightFront.setPower(rightFPower);
+            leftRear.setPower(leftRPower);
+            rightRear.setPower(rightRPower);
+
             if (G1RT == 1){
                leftFront.setPower(1);
                rightFront.setPower(-1);
                leftFront.setPower(1);
                rightFront.setPower(-1);
-            }else if (G1LT == 1){
+            }if (G1LT == 1){
                 leftFront.setPower(1);
                 rightFront.setPower(-1);
                 leftFront.setPower(1);
                 rightFront.setPower(-1);
-            }else{
+            }else {
 
             }
-            leftFPower = Range.clip(drive + turn, -1.0, 1.0);
-            rightFPower = Range.clip(drive - turn, -1.0, 1.0);
-            leftRPower = Range.clip(drive + turn, -1.0, 1.0);
-            rightRPower = Range.clip(drive - turn, -1.0, 1.0);
             // Tank Mode uses one stick to control each wheel.
             // - This requires no math, but it is hard to drive forward slowly and keep straight.
             // leftPower  = -gamepad1.left_stick_y ;
